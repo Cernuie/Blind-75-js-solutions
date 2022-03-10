@@ -1,18 +1,14 @@
-let products = function(nums) {
-    return nums.reduce((previousValue, currentValue) => 
-        previousValue * currentValue
-    )
-}
-
-let productExceptSelf = function(nums) {
-
-    let retArray = new Array(nums.length).fill(0)
-    for (i = 0 ; i < nums.length; i++) { 
-        retArray.splice(i, 1, products(nums.filter((number) => number !== nums[i])))
+var productExceptSelf = function(nums) {
+    let res = new Array(nums.length).fill(1);
+    let accumulated = 1 
+    for (i = 0; i < res.length; i++){
+        res[i] *= accumulated
+        accumulated *= nums[i]
     }
-
-    return retArray
+    accumulated = 1
+    for (i = res.length - 1; i >= 0; i--){
+        res[i] *= accumulated
+        accumulated *= nums[i]
+    }
+    return res;
 }
-console.log(products([2,3,4]))
-console.log(productExceptSelf([1,2,3,4]))
-console.log(productExceptSelf([0,1,2,0]))
